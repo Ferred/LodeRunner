@@ -51,6 +51,54 @@
 		'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW'							
 		];
 		
+		
+//First, count the treasures
+
+		var numberOfTreasures = 0;
+		for (var y = 0; y < Game.map_grid.height; y++) {
+				for (var x = 0; x < Game.map_grid.width; x++) { 		
+					if (map[y][x] == 'T'){				
+						numberOfTreasures++;					
+					}
+				}		
+			}
+		
+//then we create an array to save them in
+
+		var treasures = new Array(numberOfTreasures);
+		for (var i = 0; i < numberOfTreasures; i++) {
+			treasures[i] = new Array(2);
+		}
+
+//initialize the array- hereby the first cell determines the state of the treasure with a number
+//0 declares its on the field
+//1 declares it is owned by a player
+//2 declares it is owned by an enemy
+//The second cell is as of yet empty and will be used to determine the ID of the enemy owning the treasure		
+		
+		for (var i = 0; i < numberOfTreasures; i++) {
+			for(var j = 0; j < 2; j++) {
+				treasures[i][j] = 0;
+			}
+		}
+	
+//Access cells with
+//array[x][y];
+	
+//an event listener to keep track of the treasures
+ 
+ /*todo*/
+		this.show_victory = this.bind('TreasureCollected', function() {
+
+			
+		
+		});
+
+	
+//an event listener to spawn the ladder
+ /*todo*/
+
+			
 
 // Place a tree at every edge square on our grid of 16x16 tiles
         for (var y = 0; y < Game.map_grid.height; y++) {

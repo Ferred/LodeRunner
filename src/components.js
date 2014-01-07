@@ -85,7 +85,11 @@ Crafty.c('PlayerCharacter', {
 	}
 	
 });
+
+//Todo add ID to treasure
 Crafty.c('Treasure', {
+	_var id,
+	
     init: function() {
         this.requires('Actor, Color')
                 .color('rgb(245,184,0)');
@@ -93,6 +97,8 @@ Crafty.c('Treasure', {
 	
 	collect: function() {
 	this.destroy();
-	// Crafty.trigger('TreasureCollected', this);
-}
+	 Crafty.trigger('TreasureCollected', this);
+	},
+	
+	treasure: function(var id) { this.id = id}
 });
