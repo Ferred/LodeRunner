@@ -57,7 +57,7 @@ Crafty.c('Pole', {
 // This is the player-controlled character
 Crafty.c('PlayerCharacter', {
     init: function() {
-        this.requires('Actor, Fourway, Color, Collision')
+        this.requires('Actor, Fourway, Color, Collision') //insted of Fourway use .twoway(2) or .gravity(?). must work somehow
                 .fourway(4)
                 .color('rgb(150, 150, 150)')
                 .stopOnSolids()
@@ -70,14 +70,21 @@ Crafty.c('PlayerCharacter', {
 
         return this;
     },
-	// Stops the movement
-    stopMovement: function() {
-        this._speed = 0;
+	stopMovement: function () {
         if (this._movement) {
             this.x -= this._movement.x;
-            this.y -= this._movement.y;
-        }
-    },
+            if (this.hit('Solid') != false) {
+                this.x += this._movement.x;
+                this.y -= this._movement.y;
+                if (this.hit('Solid') != false) {
+                    this.x -= this._movement.x;
+                  //  this.y -= this._movement.y;
+                }
+            }
+        } else {
+            this._speed = 0;
+            }
+        },
 	 // Respond to this player collecting a Treasure
 	collectTreasure: function(data) {
 	treasure = data[0].obj;
@@ -97,8 +104,15 @@ Crafty.c('Treasure', {
 	
 	collect: function() {
 	this.destroy();
+	/*
+<<<<<<< HEAD
 	 Crafty.trigger('TreasureCollected', this);
 	},
 	
 	treasure: function(var id) { this.id = id}
+=======
+*/
+	Crafty.trigger('TreasureCollected', this);
+}
+>>>>>>> 2e869a31796f6df2446d1c2597d58f7bf02b188d
 });
