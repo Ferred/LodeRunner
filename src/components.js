@@ -41,12 +41,14 @@ Crafty.c('Stone', {
                 .color('rgb(139,26,26)');
     },
 });
+
 Crafty.c('Ladder', {
     init: function() {
         this.requires('Actor, Color')
                 .color('rgb(205,193,197)');
     },
 });
+
 Crafty.c('Pole', {
     init: function() {
         this.requires('Actor, Color')
@@ -134,26 +136,31 @@ Crafty.c('PlayerCharacter', {
 	
 });
 
-//Todo add ID to treasure
 Crafty.c('Treasure', {
-	_var id,
-	
+	 
+	 _id : 0,
+	 
     init: function() {
         this.requires('Actor, Color')
                 .color('rgb(245,184,0)');
     },
 	
 	collect: function() {
-	this.destroy();
-	/*
-<<<<<<< HEAD
-	 Crafty.trigger('TreasureCollected', this);
+		this.destroy();
+		Crafty.trigger('TreasureCollected', this);	 
 	},
+
+	treasure: function(id) { this.id = id}
+
+});
+
+Crafty.c('Exit', {
+    init: function() {
+        this.requires('Actor, Color')
+                .color('rgb(205,105,197)');
+    },
 	
-	treasure: function(var id) { this.id = id}
-=======
-*/
-	Crafty.trigger('TreasureCollected', this);
-}
->>>>>>> 2e869a31796f6df2446d1c2597d58f7bf02b188d
+	finish: function() {
+		Crafty.trigger('LevelComplete');	 
+	},
 });

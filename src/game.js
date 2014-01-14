@@ -52,50 +52,20 @@
 		];
 		
 		
-//First, count the treasures
 
-		var numberOfTreasures = 0;
-		for (var y = 0; y < Game.map_grid.height; y++) {
-				for (var x = 0; x < Game.map_grid.width; x++) { 		
-					if (map[y][x] == 'T'){				
-						numberOfTreasures++;					
-					}
-				}		
-			}
-		
-//then we create an array to save them in
+//We create an array to save the treasures in them in and initialize the ID
 
-		var treasures = new Array(numberOfTreasures);
-		for (var i = 0; i < numberOfTreasures; i++) {
-			treasures[i] = new Array(2);
-		}
+		var treasures = new Array;
 
-//initialize the array- hereby the first cell determines the state of the treasure with a number
-//0 declares its on the field
-//1 declares it is owned by a player
-//2 declares it is owned by an enemy
-//The second cell is as of yet empty and will be used to determine the ID of the enemy owning the treasure		
-/*		
-		for (var i = 0; i < numberOfTreasures; i++) {
-			for(var j = 0; j < 2; j++) {
-				treasures[i][j] = 0;
-			}
-		}
-	*/
-//Access cells with
-//array[x][y];
+		var treasureId = 0;
 	
 //an event listener to keep track of the treasures
-
  /*todo*/
- /*
-		this.show_victory = this.bind('TreasureCollected', function() {
+/*
+		this.checkTreasures = this.bind('TreasureCollected', function() {
 
-			
-		
 		});
-*/
-	
+	*/
 //an event listener to spawn the ladder
  /*todo*/
 
@@ -126,12 +96,17 @@
 						}					
 					}			                
                 if (map[y][x] == 'T'){
-				Crafty.e('Treasure').at(x+1, y+1);				
+					Crafty.e('Treasure').at(x+1, y+1).treasure(treasureId);	
+					
+					treasureData=new Object();
+					treasureData.state = 'Visible';
+					treasures.push(treasureData);
+					
+					treasureId++;
 				}
 				if (map[y][x] == 'P'){
-				Crafty.e('PlayerCharacter').at(x+1, y+1);
-					
-				Crafty.e('Frame').at(33, 23);			// fehlerkaschierung
+					Crafty.e('PlayerCharacter').at(x+1, y+1);
+					Crafty.e('Frame').at(33, 23);			// fehlerkaschierung
 				}	
             } 
         }					
