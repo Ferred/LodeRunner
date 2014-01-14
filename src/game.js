@@ -24,7 +24,7 @@
         Crafty.init(Game.width(), Game.height());
         Crafty.background('rgb(0, 0, 0)');
 		
-		//nur 32 * 23 Felder wegen Umrandung 
+		//nur 32 * 23 Felder wegen Umrandung  //CHAR AT
 		var	map = [	
 		'................................',		
 		'................................',
@@ -137,4 +137,13 @@
         }					
     }
   
+}
+
+//shows x and y coordinate where the mouse is (doesn't work
+function mouse(e)
+{
+  var x = e.pageX;
+  var y = e.pageY;
+  document.getElementById('x').innerHTML = x;
+  document.getElementById('y').innerHTML = y;
 }
