@@ -75,25 +75,26 @@
 //1 declares it is owned by a player
 //2 declares it is owned by an enemy
 //The second cell is as of yet empty and will be used to determine the ID of the enemy owning the treasure		
-		
+/*		
 		for (var i = 0; i < numberOfTreasures; i++) {
 			for(var j = 0; j < 2; j++) {
 				treasures[i][j] = 0;
 			}
 		}
-	
+	*/
 //Access cells with
 //array[x][y];
 	
 //an event listener to keep track of the treasures
- 
+
  /*todo*/
+ /*
 		this.show_victory = this.bind('TreasureCollected', function() {
 
 			
 		
 		});
-
+*/
 	
 //an event listener to spawn the ladder
  /*todo*/
