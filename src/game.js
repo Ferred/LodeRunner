@@ -1,30 +1,4 @@
-	Game = {
-// This defines our grid's size and the size of each of its tiles
-    map_grid: {
-        width: 34,			
-        height: 24,
-        tile: {
-            width: 24,
-            height: 24,
-        }
-    },
-// The total width of the game screen. Since our grid takes up the entire screen
-// this is just the width of a tile times the width of the grid
-    width: function() {
-        return this.map_grid.width * this.map_grid.tile.width;
-    },
-// The total height of the game screen. Since our grid takes up the entire screen
-// this is just the height of a tile times the height of the grid
-    height: function() {
-        return this.map_grid.height * this.map_grid.tile.height;
-    },
-// Initialize and start our game
-    start: function() {
-// Start crafty and set a background color so that we can see it's working
-        Crafty.init(Game.width(), Game.height());
-        Crafty.background('rgb(0, 0, 0)');
-		
-		//nur 32 * 23 Felder wegen Umrandung  //CHAR AT
+//nur 32 * 23 Felder wegen Umrandung  //CHAR AT
 		var	map = [	
 		'................................',		
 		'................................',
@@ -50,6 +24,35 @@
 		'......H........P...T...........H',
 		'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW'							
 		];
+
+Game = {
+// This defines our grid's size and the size of each of its tiles
+    map_grid: {
+        width: 34,			
+        height: 24,
+        tile: {
+            width: 24,
+            height: 24,
+        }
+    },
+// The total width of the game screen. Since our grid takes up the entire screen
+// this is just the width of a tile times the width of the grid
+    width: function() {
+        return this.map_grid.width * this.map_grid.tile.width;
+    },
+// The total height of the game screen. Since our grid takes up the entire screen
+// this is just the height of a tile times the height of the grid
+    height: function() {
+        return this.map_grid.height * this.map_grid.tile.height;
+    },
+// Initialize and start our game
+    start: function() {
+// Start crafty and set a background color so that we can see it's working
+        Crafty.init(Game.width(), Game.height());
+        document.getElementById("cr-stage").onmousemove = mouse; //is for showing mouse coordinates
+        Crafty.background('rgb(0, 0, 0)');
+		
+		
 		
 		
 
@@ -116,11 +119,12 @@
   
 }
 
-//shows x and y coordinate where the mouse is (doesn't work
+//shows x and y coordinate where the mouse is 
 function mouse(e)
 {
-  var x = e.pageX;
-  var y = e.pageY;
+  var x = e.pageX - document.getElementById('cr-stage').offsetLeft;
+  var y = e.pageY - document.getElementById('cr-stage').offsetTop;
   document.getElementById('x').innerHTML = x;
   document.getElementById('y').innerHTML = y;
 }
+
