@@ -62,9 +62,11 @@
 //an event listener to keep track of the treasures
  /*todo*/
 /*
-		this.checkTreasures = this.bind('TreasureCollected', function() {
-
-		});
+		checkTreasures:function(){
+		
+		},
+		
+		bind('TreasureCollected',checkTreasures() );
 	*/
 //an event listener to spawn the ladder
  /*todo*/
