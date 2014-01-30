@@ -1,30 +1,3 @@
-//nur 32 * 23 Felder wegen Umrandung  //CHAR AT
-		var	map = [	
-		'................................',		
-		'................................',
-		'....T...........................',
-		'WWWWWWWWWHWWWWWWW...............',
-		'.........H-------------.........',
-		'.........H....WWH...............',
-		'.........H....WWH......T........',
-		'.........H....WWH....WWWWHWWWWWW',
-		'.........H....WWH........H......',
-		'.........H....WWH........H......',
-		'.........H....WWH.......TH......',
-		'WWWWHWWWWW....WWWWWWHWWWWWWWWWWW',
-		'....H...............H...........',
-		'....H...............H...........',
-		'....H...............H...........',
-		'WWWWWWWWWWWWHWWWWWWWHWWWWWWWWWWW',
-		'............H.......H...........',
-		'............H.......H...........',		
-		'.........T..H-------H...T.......',
-		'......HWWWWWWW......WWWWWWWWWWWH',
-		'......H........................H',
-		'......H........P...T...........H',
-		'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW'							
-		];
-
 Game = {
 // This defines our grid's size and the size of each of its tiles
     map_grid: {
@@ -49,8 +22,9 @@ Game = {
     start: function() {
 // Start crafty and set a background color so that we can see it's working
         Crafty.init(Game.width(), Game.height());
-        document.getElementById("cr-stage").onmousemove = mouse; //is for showing mouse coordinates
+       // document.getElementById("cr-stage").onmousemove = mouse;
         Crafty.background('rgb(0, 0, 0)');
+<<<<<<< HEAD
 		
 		
 		
@@ -114,9 +88,15 @@ Game = {
             } 
         }					
     }
-  
+/* 
+=======
+		Crafty.scene('Loading');
+        //Crafty.scene('Game');
+        //Crafty.scene('NextLevel');       
+    } 
+>>>>>>> 7313b4a3497fca76d97cd3d931cc82f9fc12249e
+*/
 }
-
 //shows x and y coordinate where the mouse is 
 function mouse(e)
 {

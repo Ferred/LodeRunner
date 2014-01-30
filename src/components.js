@@ -1,4 +1,5 @@
-// The Grid component allows an element to be located
+
+// // The Grid component allows an element to be located
 // on a grid of tiles
 Crafty.c('Grid', {
     init: function() {
@@ -25,45 +26,71 @@ Crafty.c('Actor', {
         this.requires('2D, Canvas, Grid');
     },
 });
-
 Crafty.c('Frame', {
     init: function() {
         this.requires('Actor, Color, Solid')
-                .color('rgb(220, 220, 220)');
+                .color('rgb(254, 254, 254)');
     },
 });
 
-Crafty.c('Stone', {
+ 
+Crafty.c('Stone', {   //ohne spritemapping
     init: function() {
-        this.requires('Actor, Color, Solid')
-                .color('rgb(139,26,26)');
+        this.requires('Actor, Solid, Image')                
+                .image("assets/stone.png");
+    },
+});
+//Crafty.c('Stone', { //für spritemapping
+//    init: function() {
+//        this.requires('Actor, Solid, spr_stone');                              
+//    },
+//});
+Crafty.c('Concrete', {   
+    init: function() {
+        this.requires('Actor, Solid, Image')                
+                .image("assets/concrete.png");
     },
 });
 
 Crafty.c('Ladder', {
     init: function() {
-        this.requires('Actor, Color')
-                .color('rgb(205,193,197)');
+        this.requires('Actor, Image')                
+                .image("assets/ladder.png");
+               
     },
 });
 
 Crafty.c('Pole', {
     init: function() {
-        this.requires('Actor, Color')
-                .color('rgb(230,230,230)');
+        this.requires('Actor, Image')
+                .image("assets/pole.png");
     },
 });
+ 
+//The Deegre directionn vor Multiway
+var upDeg = -90;
+var downDeg = 90;
+var rightDeg = 0;
+var leftDeg = 180;
 
+//setInterval(Crafty.e('PlayerCharacter').h += 10, 1000);
 // This is the player-controlled character
+
 Crafty.c('PlayerCharacter', {
+    
+   
+    
     init: function() {
         this.requires('Actor, Multiway, Color, Collision, Gravity')// Multiway: Character goes in the direction of the degree number. Right Arrow = 0 (Clockwise). Number in the Beginnig is the speed.
-                .multiway(4,{UP_ARROW: -90, DOWN_ARROW: 90, RIGHT_ARROW: 0, LEFT_ARROW: 180})
+                //.multiway(4,{UP_ARROW: upDeg, DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg})
+                .multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg})
 		.gravity('Solid')
                 .color('rgb(150, 150, 150)')
                 .stopOnSolids()
+		//.onHit('Ladder', this.antigravity)   // ist nur vorrübergehend, damit man das level beenden kann
 		.onHit('Treasure', this.collectTreasure);
     },
+
         //Wird nicht benötigt ist sinnlos
 	//"Reads" the map. Each Block around the player is saved in an array.
 	//Index 0 is the block in the upper left corner and then its clockwise around till 8. 
@@ -102,28 +129,62 @@ Crafty.c('PlayerCharacter', {
             if(blockType == blockArray[position]);
         },*/
     
-        //Detects the upcoming block und -x and -y direction
-        detectNextBlock_LeftAndUp: function ()
+        //Detects the upcoming block in -x direction 
+        detectNextBlock_Left: function ()
         {
-            var mapCoordY = (this.y - 1)/ this.h;
+            var mapCoordY = (this.y )/ this.h;
             var mapCoordX = (this.x - 1) / this.w;
             
             return(blockIs(mapCoordY, mapCoordX));
         },
-        //Detects the upcoming block und +x and +y direction
-        detectNextBlock_RightAndDown: function ()
+        //Detects the upcoming block -y direction
+        detectNextBlock_Up: function ()
+        {
+            var mapCoordY = (this.y - 1)/ this.h;
+            var mapCoordX = (this.x ) / this.w;
+            
+            return(blockIs(mapCoordY, mapCoordX));
+        },
+        //Detects the upcoming block +x direction
+        detectNextBlock_Right: function ()
+        {
+            var mapCoordY = (this.y)/ this.h;
+            var mapCoordX = (this.x + this.w) / this.w;
+            
+            return(blockIs(mapCoordY, mapCoordX));
+        },
+        //Detects the upcoming block und +y direction
+        detectNextBlock_Down: function ()
         {
             var mapCoordY = (this.y + this.h)/ this.h;
-            var mapCoordX = (this.x + this.w) / this.w;
+            var mapCoordX = (this.x) / this.w;
             
             return(blockIs(mapCoordY, mapCoordX));
         },
         //Ables/disables climbing ability. Leads Player to the next leader, when the Ladder is within one Block
         climbMaster: function ()
         {
-            if(key_down() ==  2){
-                
+            //2 = is up
+            if(key_down() ==  2 && this.detectNextBlock_Up() == 'H' || this.detectNextBlock_LeftAndUp() == 'h'){
+                this.antigravity();
+                this.multiway(4,{UP_ARROW: upDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
             }
+            else if(key_down() ==  2 && this.detectNextBlock_Up() != 'H' || this.detectNextBlock_LeftAndUp() != 'h'){
+                this.gravity('Solid');
+                this.multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
+            }
+            
+            //4 = is down
+            if(key_down() ==  2 && this.detectNextBlock_Up() == 'H' || this.detectNextBlock_LeftAndUp() == 'h'){
+                this.antigravity();
+                this.multiway(4,{DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
+            }
+            else if(key_down() ==  2 && this.detectNextBlock_Up() != 'H' || this.detectNextBlock_LeftAndUp() != 'h'){
+                this.gravity('Solid');
+                this.multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
+            }
+            
+            setTimeout(climbMaster, 10);
         },
 	// Registers a stop-movement function to be called when
 	// this entity hits an entity with the "Solid" component
@@ -153,6 +214,7 @@ Crafty.c('PlayerCharacter', {
 		treasure.collect();
 	}
 	
+        
 });
 /*
 <<<<<<< HEAD
@@ -180,8 +242,8 @@ Crafty.c('Treasure', {
 	 _id : 0,
 	 
     init: function() {
-        this.requires('Actor, Color')
-                .color('rgb(245,184,0)');
+        this.requires('Actor, Image')
+                .image("assets/treasure.png");
     },
 	
 	collect: function() {
