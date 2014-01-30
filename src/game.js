@@ -58,9 +58,7 @@ Game = {
 
 //We create an array to save the treasures in them in and initialize the ID
 
-		var treasures = new Array;
-
-		var treasureId = 0;
+	container = Crafty.e('TreasueContainer');
 	
 //an event listener to keep track of the treasures
  /*todo*/
@@ -101,13 +99,13 @@ Game = {
 						}					
 					}			                
                 if (map[y][x] == 'T'){
-					Crafty.e('Treasure').at(x+1, y+1).treasure(treasureId);	
+					Crafty.e('Treasure').at(x+1, y+1).treasure(container.getID());	
+			//		Crafty.e('Treasure').at(x+1, y+1);
 					
 					treasureData=new Object();
 					treasureData.state = 'Visible';
-					treasures.push(treasureData);
+					container.add(treasureData);
 					
-					treasureId++;
 				}
 				if (map[y][x] == 'P'){
 					Crafty.e('PlayerCharacter').at(x+1, y+1);

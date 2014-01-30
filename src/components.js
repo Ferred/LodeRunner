@@ -186,10 +186,40 @@ Crafty.c('Treasure', {
 	
 	collect: function() {
 		this.destroy();
+		//TODO
 		Crafty.trigger('TreasureCollected', this);	 
 	},
 
-	treasure: function(id) { this.id = id}
+	getId: function() {
+		return this._id
+	},
+	
+	treasure: function(id) { this._id = id}
+
+});
+
+Crafty.c('TreasueContainer',{
+
+	init: function() {
+		_treasures = new Array;
+		_treasureId = 0;
+	},
+	
+	add: function(TreasureData) {
+		_treasures.push(TreasureData);
+	},
+	
+	getID: function () {
+		return _treasures.length;
+	},
+	
+	checkTreasures: function() {
+	  //TODO
+	},
+	
+	updateTreasures: function(treasure) {
+		_treasures[treasure.getId()].state = 'Collected';
+	},
 
 });
 
