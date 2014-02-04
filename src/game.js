@@ -1,7 +1,7 @@
 Game = {
 // This defines our grid's size and the size of each of its tiles
     map_grid: {
-        width: 34,			
+        width: 34,                        
         height: 24,
         tile: {
             width: 24,
@@ -24,80 +24,12 @@ Game = {
         Crafty.init(Game.width(), Game.height());
        // document.getElementById("cr-stage").onmousemove = mouse;
         Crafty.background('rgb(0, 0, 0)');
-<<<<<<< HEAD
-		
-		
-		
-		
-
-//We create an array to save the treasures in them in and initialize the ID
-
-	container = Crafty.e('TreasueContainer');
-	
-//an event listener to keep track of the treasures
- /*todo*/
-/*
-		checkTreasures:function(){
-		
-		},
-		
-		bind('TreasureCollected',checkTreasures() );
-	*/
-//an event listener to spawn the ladder
- /*todo*/
-
-			
-
-// Place a tree at every edge square on our grid of 16x16 tiles
-        for (var y = 0; y < Game.map_grid.height; y++) {
-		
-			for (var x = 0; x < Game.map_grid.width; x++) {    
-					
-				if (x == 0 || x == Game.map_grid.width - 1 || y == 0 || y == Game.map_grid.height - 1) {																					
-				Crafty.e('Frame').at(x, y);										
-				}			
-					while(map[y][x] == 'W' || map[y][x] == 'X' || map[y][x] == 'H' || map[y][x] == '-'){
-														
-						while (map[y][x] == 'W'){
-						Crafty.e('Stone').at(x+1, y+1);					
-						x++;
-						}
-						
-						while (map[y][x] == 'H'){
-						Crafty.e('Ladder').at(x+1, y+1);
-						x++;
-						}
-						while (map[y][x] == '-'){
-						Crafty.e('Pole').at(x+1, y+1);
-						x++;
-						}					
-					}			                
-                if (map[y][x] == 'T'){
-					Crafty.e('Treasure').at(x+1, y+1).treasure(container.getID());	
-			//		Crafty.e('Treasure').at(x+1, y+1);
-					
-					treasureData=new Object();
-					treasureData.state = 'Visible';
-					container.add(treasureData);
-					
-				}
-				if (map[y][x] == 'P'){
-					Crafty.e('PlayerCharacter').at(x+1, y+1);
-					Crafty.e('Frame').at(33, 23);			// fehlerkaschierung
-				}	
-            } 
-        }					
-    }
-/* 
-=======
-		Crafty.scene('Loading');
+                Crafty.scene('Loading');
         //Crafty.scene('Game');
-        //Crafty.scene('NextLevel');       
-    } 
->>>>>>> 7313b4a3497fca76d97cd3d931cc82f9fc12249e
-*/
+        //Crafty.scene('NextLevel');
+    }
 }
-//shows x and y coordinate where the mouse is 
+//shows x and y coordinate where the mouse is
 function mouse(e)
 {
   var x = e.pageX - document.getElementById('cr-stage').offsetLeft;

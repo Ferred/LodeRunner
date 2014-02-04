@@ -1,0 +1,1 @@
+The tilesize is 24 x 24 pixels

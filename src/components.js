@@ -1,4 +1,3 @@
-
 // // The Grid component allows an element to be located
 // on a grid of tiles
 Crafty.c('Grid', {
@@ -34,32 +33,30 @@ Crafty.c('Frame', {
 });
 
  
-Crafty.c('Stone', {   //ohne spritemapping
+Crafty.c('Stone', { //ohne spritemapping
     init: function() {
-        this.requires('Actor, Solid, Image')                
+        this.requires('Actor, Solid, Image')
                 .image("assets/stone.png");
     },
 });
 //Crafty.c('Stone', { //für spritemapping
-//    init: function() {
-//        this.requires('Actor, Solid, spr_stone');                              
-//    },
+// init: function() {
+// this.requires('Actor, Solid, spr_stone');
+// },
 //});
-Crafty.c('Concrete', {   
+Crafty.c('Concrete', {
     init: function() {
-        this.requires('Actor, Solid, Image')                
+        this.requires('Actor, Solid, Image')
                 .image("assets/concrete.png");
     },
 });
-
 Crafty.c('Ladder', {
     init: function() {
-        this.requires('Actor, Image')                
+        this.requires('Actor, Image')
                 .image("assets/ladder.png");
                
     },
 });
-
 Crafty.c('Pole', {
     init: function() {
         this.requires('Actor, Image')
@@ -84,52 +81,52 @@ Crafty.c('PlayerCharacter', {
         this.requires('Actor, Multiway, Color, Collision, Gravity')// Multiway: Character goes in the direction of the degree number. Right Arrow = 0 (Clockwise). Number in the Beginnig is the speed.
                 //.multiway(4,{UP_ARROW: upDeg, DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg})
                 .multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg})
-		.gravity('Solid')
+                .gravity('Solid')
                 .color('rgb(150, 150, 150)')
                 .stopOnSolids()
-		//.onHit('Ladder', this.antigravity)   // ist nur vorrübergehend, damit man das level beenden kann
-		.onHit('Treasure', this.collectTreasure);
+                //.onHit('Ladder', this.antigravity) // ist nur vorrübergehend, damit man das level beenden kann
+                .onHit('Treasure', this.collectTreasure)
+				.onHit('Exit', this.hitExit);
     },
 
         //Wird nicht benötigt ist sinnlos
-	//"Reads" the map. Each Block around the player is saved in an array.
-	//Index 0 is the block in the upper left corner and then its clockwise around till 8. 
-	//It returns an array with the "code-letters" of the Block.
-	/*surroundingBlock: function () {
-		var block = [];
-                var x_pos = this.y;
-                var y_pos = this.x;
-		x_pos = Math.round(x_pos);
-		y_pos = Math.round(y_pos);
+        //"Reads" the map. Each Block around the player is saved in an array.
+        //Index 0 is the block in the upper left corner and then its clockwise around till 8.
+        //It returns an array with the "code-letters" of the Block.
+        /*surroundingBlock: function () {
+                var block = [];
+var x_pos = this.y;
+var y_pos = this.x;
+                x_pos = Math.round(x_pos);
+                y_pos = Math.round(y_pos);
+                block [0] = standingOn(x_pos -1, y_pos -1);
+                block [1] = standingOn(x_pos , y_pos -1);//ceeiling
+                block [2] = standingOn(x_pos +1 , y_pos -1);
+                block [3] = standingOn(x_pos +1, y_pos);//right
+                block [4] = standingOn(x_pos +1, y_pos +1);
+                block [5] = standingOn(x_pos , y_pos +1);//bottom
+                block [6] = standingOn(x_pos -1, y_pos +1);
+                block [7] = standingOn(x_pos -1, y_pos );//left
                 
-		block [0] = standingOn(x_pos -1, y_pos -1);
-		block [1] = standingOn(x_pos , y_pos -1);//ceeiling
-		block [2] = standingOn(x_pos +1 , y_pos -1);
-		block [3] = standingOn(x_pos +1, y_pos);//right
-		block [4] = standingOn(x_pos +1, y_pos +1);
-		block [5] = standingOn(x_pos , y_pos +1);//bottom
-		block [6] = standingOn(x_pos -1, y_pos +1);
-		block [7] = standingOn(x_pos -1, y_pos );//left
-		
-		return this.block;
-	},*/
-	//Returns the Block ID (Stone, Ladder, etc.).
+                return this.block;
+        },*/
+        //Returns the Block ID (Stone, Ladder, etc.).
         //Needs map coordinates not pixels
-	blockIs: function (mapCoordY, mapCoordX)
-	{          
+        blockIs: function (mapCoordY, mapCoordX)
+        {
                 return Game.map[mapCoordY].charAt(mapCoordX);
-	},
+        },
         //says you, if there is a special type of Block, at specific position aroud the player.
         //returns true and false
         // blockType: Enter the letter of the Block (for exmaple 'H' for Ledder)
-        // postion: position 0 is the block in the upper left corner and then its clockwise around till 8. 
+        // postion: position 0 is the block in the upper left corner and then its clockwise around till 8.
         /*checkBlock : function (blockType, position)
-        {
-            var blockArray = Crafty.e('PlayerCharacter').surroundingBlock();
-            if(blockType == blockArray[position]);
-        },*/
+{
+var blockArray = Crafty.e('PlayerCharacter').surroundingBlock();
+if(blockType == blockArray[position]);
+},*/
     
-        //Detects the upcoming block in -x direction 
+        //Detects the upcoming block in -x direction
         detectNextBlock_Left: function ()
         {
             var mapCoordY = (this.y )/ this.h;
@@ -165,35 +162,35 @@ Crafty.c('PlayerCharacter', {
         climbMaster: function ()
         {
             //2 = is up
-            if(key_down() ==  2 && this.detectNextBlock_Up() == 'H' || this.detectNextBlock_LeftAndUp() == 'h'){
+            if(key_down() == 2 && this.detectNextBlock_Up() == 'H' || this.detectNextBlock_LeftAndUp() == 'h'){
                 this.antigravity();
                 this.multiway(4,{UP_ARROW: upDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
             }
-            else if(key_down() ==  2 && this.detectNextBlock_Up() != 'H' || this.detectNextBlock_LeftAndUp() != 'h'){
+            else if(key_down() == 2 && this.detectNextBlock_Up() != 'H' || this.detectNextBlock_LeftAndUp() != 'h'){
                 this.gravity('Solid');
                 this.multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
             }
             
             //4 = is down
-            if(key_down() ==  2 && this.detectNextBlock_Up() == 'H' || this.detectNextBlock_LeftAndUp() == 'h'){
+            if(key_down() == 2 && this.detectNextBlock_Up() == 'H' || this.detectNextBlock_LeftAndUp() == 'h'){
                 this.antigravity();
                 this.multiway(4,{DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
             }
-            else if(key_down() ==  2 && this.detectNextBlock_Up() != 'H' || this.detectNextBlock_LeftAndUp() != 'h'){
+            else if(key_down() == 2 && this.detectNextBlock_Up() != 'H' || this.detectNextBlock_LeftAndUp() != 'h'){
                 this.gravity('Solid');
                 this.multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
             }
             
             setTimeout(climbMaster, 10);
         },
-	// Registers a stop-movement function to be called when
-	// this entity hits an entity with the "Solid" component
+        // Registers a stop-movement function to be called when
+        // this entity hits an entity with the "Solid" component
     stopOnSolids: function() {
         this.onHit('Solid', this.stopMovement);
-		
-        return this;		
+                
+        return this;                
     },
-	stopMovement: function () {
+        stopMovement: function () {
         if (this._movement) {
             this.x -= this._movement.x;
             if (this.hit('Solid') != false) {
@@ -201,24 +198,26 @@ Crafty.c('PlayerCharacter', {
                 this.y -= this._movement.y;
                 if (this.hit('Solid') != false) {
                     this.x -= this._movement.x;
-                  //  this.y -= this._movement.y;
+                  // this.y -= this._movement.y;
                 }
             }
         } else {
             this._speed = 0;
             }
         },
-	 // Respond to this player collecting a Treasure
-	collectTreasure: function(data) {
-	treasure = data[0].obj;
-		treasure.collect();
-	}
-	
+         // Respond to this player collecting a Treasure
+        collectTreasure: function(data) {
+			treasure = data[0].obj;
+            treasure.collect();
+        },
+        //Respond to the player hitting the Exit
+		hitExit: function(data) {
+			exit = data[0].obj;
+            exit.collect();
+        }
         
 });
-/*
-<<<<<<< HEAD
-=======
+
 //returns number for arrow_keys
 function key_down(e)
 {
@@ -234,64 +233,71 @@ function key_down(e)
         return 3;
 }
 
->>>>>>> 2461cac70ad87a2b3b5fa8776d811d100e37d531
-
-*/
 Crafty.c('Treasure', {
-	 
-	 _id : 0,
-	 
+
     init: function() {
         this.requires('Actor, Image')
                 .image("assets/treasure.png");
     },
-	
-	collect: function() {
-		this.destroy();
-		//TODO
-		Crafty.trigger('TreasureCollected', this);	 
-	},
-
-	getId: function() {
-		return this._id
-	},
-	
-	treasure: function(id) { this._id = id}
-
+        
+        collect: function() {
+        this.destroy();
+        Crafty.trigger('TreasureCollected', this);
+	}
 });
 
-Crafty.c('TreasueContainer',{
-
-	init: function() {
-		_treasures = new Array;
-		_treasureId = 0;
-	},
-	
-	add: function(TreasureData) {
-		_treasures.push(TreasureData);
-	},
-	
-	getID: function () {
-		return _treasures.length;
-	},
-	
-	checkTreasures: function() {
-	  //TODO
-	},
-	
-	updateTreasures: function(treasure) {
-		_treasures[treasure.getId()].state = 'Collected';
-	},
-
-});
-
+//the exit which allows the player to leave the level
 Crafty.c('Exit', {
+
     init: function() {
-        this.requires('Actor, Color')
-                .color('rgb(205,105,197)');
+        this.requires('Actor, Image')
+                 .image("assets/exit.png");
     },
+        
+        collect: function() {
+        this.destroy();
+        Crafty.trigger('levelCompleted', this);
+	}
+
+});
+
+
+//treasure container class. Saves number of treasures as the size of the array and the state of them as data in it.
+Crafty.c('TreasureContainer', {
+
+    init: function() {
+		this._treasures  = new Array();
+	},
 	
-	finish: function() {
-		Crafty.trigger('LevelComplete');	 
+    add: function() {
+		this._treasures.push("Uncollected");
+    },
+       
+	getLength: function() {
+		return this._treasures.length;
+	},
+
+	// a function to check if all treasures have been collected;
+	//returns true if they are, otherwise returns false
+	checkTreasures: function() {
+	
+		var result = true;
+	
+		for(var i = 0; i < this._treasures.length; i++) {
+			if( this._treasures[i] != "Collected") {
+				result = false;
+			}
+		}
+		return result;
+	},
+	
+	//a function to safe that a treasure has been collected by the player
+	collectTreasure: function() {
+		for(var i = 0; i < this._treasures.length; i++) {
+			if( this._treasures[i] == "Uncollected") {
+				this._treasures[i] = "Collected";
+				break;
+			}		
+		}
 	},
 });
