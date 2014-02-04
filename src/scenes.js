@@ -27,21 +27,28 @@ var level1 =[
 ''
 ];*/
 
+<<<<<<< HEAD
 var level1 =[         
     '................................',
     '....T..P.................h......',
     'CWCCWCCCWHWWWWWWC........h......',
+=======
+var level1 =[                     	
+    '.........................T......',
+    '....T....................h......',
+    'WWWWWWWWWHWWWWWWW........h......',
+>>>>>>> 9b90a1b9e2df3467ff0913b62c10107e3d0a3548
     '.........H---------------h......',
     '.........H....WWH........h......',
     '.........H....WWH......T.h.....E',
     '.........H....WWH....WWWWHWWWWWW',
     '.........H....WWH........H......',
     '.........H....WWH........H......',
-    '.........H....WWH.......tH......',
+    '.....P..TH....WWH.......tH......',
     'WWWWHWWWWW....WWWWWWHWWWWWWWWWWW',
     '....H...............H...........',
     '....H...............H...........',
-    '....H...............H...........',
+    '....H........E......H...........',
     'WWWWWWWWWWWWHWWWWWWWHWWWWWWWWWWW',
     '............H.......H...........',
     '............H.......H...........',                
@@ -64,7 +71,7 @@ var level1 =[
     'WWHWWWWW..h..WWWWWHWWWWWWWWWWWWW',
     '..H....WW.h.WW....H.............',
     '..H.....W.H.W.....H.............',
-    '..H......CHC......H.....T.......',
+    '..H......WHW......H.....T.......',
     'HWWWH.....H......WHWWHWWW.......',
     'H...H................H..........',
     'H...H.....T..........H..........',
@@ -73,17 +80,25 @@ var level1 =[
     'H...HWWWWWWWWHWWWWWWWHWWWWWWWHWW',
     'H............H...............H..',
     'H......T.....H...------WWWWWWHWW',
-    'H......WWCCCCHWWWW...........H..',
+    'H......WWWWWWHWWWW...........H..',
     'H............................H..',
     'H...............P............H..',
     'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
     '',
     ''
+<<<<<<< HEAD
     ];
         
         var levelcounter = 0;
         
         
+=======
+    ];    
+	
+	var levelcounter = 0;
+	      
+	
+>>>>>>> 9b90a1b9e2df3467ff0913b62c10107e3d0a3548
 Crafty.scene('Game', function() {
 
     var map;
@@ -123,10 +138,20 @@ Crafty.scene('Game', function() {
 					container.add();					
                 }
                 if (map[y][x] == 'P'){
+<<<<<<< HEAD
                     Crafty.e('PlayerCharacter').at(x+1, y+1);
                 }                                        
         }
     }
+=======
+                thePlayer  =  Crafty.e('PlayerCharacter').at(x+1, y+1);  
+                }				
+                if (map[y][x] == 'E'){
+                    Crafty.e('Enemy').at(x+1, y+1);
+                }
+        } 
+    }        
+>>>>>>> 9b90a1b9e2df3467ff0913b62c10107e3d0a3548
    
     //creates an exit- still unfinished until ladders work correctly
     this.show_ladder = this.bind('TreasureCollected', function() {
@@ -169,11 +194,21 @@ this.unbind('KeyDown', this.restart_game);
 
 Crafty.scene('Loading', function(){
 
-  Crafty.load(['assets/16x16_forest_1.gif', 'assets/stone.png', 'assets/ladder.png', 'assets/pole.png', 'assets/treasure.png', 'assets/concrete.png',], function(){
+  Crafty.load(['assets/Stein_oK_72ppi.png', 'assets/Ladder.png', 'assets/Schatz_24x19_72ppi.png', 'assets/Pole.png', 'assets/playersprite.png', 'assets/enemysprite.png' ], function(){
 
+	    Crafty.sprite(24, 'assets/playersprite.png', {
+        spr_player: [0, 0],
+        });
+		Crafty.sprite(24, 'assets/enemysprite.png', {
+        spr_enemy: [0, 0],
+        });
+
+<<<<<<< HEAD
     Crafty.sprite(16, 'assets/16x16_forest_1.gif', { // kommt noch nicht zum einsatz
         spr_stone: [0, 0]
     });
+=======
+>>>>>>> 9b90a1b9e2df3467ff0913b62c10107e3d0a3548
       Crafty.e('2D, DOM, Text')
     .text("Press any key to Start!")
     .attr({ x: 0, y: Game.height()/2 - 24, w: Game.width() })
