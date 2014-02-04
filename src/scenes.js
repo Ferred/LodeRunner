@@ -1,6 +1,6 @@
 //für die Bewegung zum testen
 /*
-var level1 =[         
+var level1 =[
 '..........T.....................',
 '..........h.....................',
 'WWWW......h.......WWWWHWWWWWWWWW',
@@ -27,20 +27,13 @@ var level1 =[
 ''
 ];*/
 
-<<<<<<< HEAD
-var level1 =[         
-    '................................',
-    '....T..P.................h......',
-    'CWCCWCCCWHWWWWWWC........h......',
-=======
-var level1 =[                     	
+var level1 =[
     '.........................T......',
     '....T....................h......',
     'WWWWWWWWWHWWWWWWW........h......',
->>>>>>> 9b90a1b9e2df3467ff0913b62c10107e3d0a3548
     '.........H---------------h......',
     '.........H....WWH........h......',
-    '.........H....WWH......T.h.....E',
+    '.........H....WWH......T.h......',
     '.........H....WWH....WWWWHWWWWWW',
     '.........H....WWH........H......',
     '.........H....WWH........H......',
@@ -51,7 +44,7 @@ var level1 =[
     '....H........E......H...........',
     'WWWWWWWWWWWWHWWWWWWWHWWWWWWWWWWW',
     '............H.......H...........',
-    '............H.......H...........',                
+    '............H.......H...........',	
     '.........t..H-------H...t.......',
     '......HWWWWWWW......WWWWWWWWWWWH',
     '......H........................H',
@@ -60,8 +53,8 @@ var level1 =[
     '', // nicht entfernen!
     '' // nicht entfernen!
     ];
-        
-        var level2 =[
+
+var level2 =[
     '..........T.....................',
     '..........h.....................',
     'WWWW......h.......WWWWHWWWWWWWWW',
@@ -86,72 +79,57 @@ var level1 =[
     'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
     '',
     ''
-<<<<<<< HEAD
     ];
-        
-        var levelcounter = 0;
-        
-        
-=======
-    ];    
-	
-	var levelcounter = 0;
-	      
-	
->>>>>>> 9b90a1b9e2df3467ff0913b62c10107e3d0a3548
+
+var levelcounter = 0;
+
+
 Crafty.scene('Game', function() {
 
     var map;
 	
 	container = Crafty.e('TreasureContainer');
-	
+ 
     if(levelcounter == 0){
-                map = level1;
+map = level1;
     }
     console.log(levelcounter);
-        
+
     if(levelcounter >= 1){
-                map = level2;
+map = level2;
     }
     
     for (var y = 0; y < Game.map_grid.height; y++) {
 
         for (var x = 0; x < Game.map_grid.width; x++) {
 
-                if (x == 0 || x == Game.map_grid.width - 1 || y == 0 || y == Game.map_grid.height - 1) {                                                                                                                                                                        
-                    Crafty.e('Frame').at(x, y);                                                                                
-                }                        
+                if (x == 0 || x == Game.map_grid.width - 1 || y == 0 || y == Game.map_grid.height - 1) {	
+                    Crafty.e('Frame').at(x, y);	
+                }	
                 if (map[y][x] == 'W'){
-                    Crafty.e('Stone').at(x+1, y+1);                                        
+                    Crafty.e('Stone').at(x+1, y+1);	
                 }
                 if (map[y][x] == 'C'){
-                    Crafty.e('Concrete').at(x+1, y+1);                                        
-                }                                
+                    Crafty.e('Concrete').at(x+1, y+1);	
+                }	
                 if (map[y][x] == 'H'){
                     Crafty.e('Ladder').at(x+1, y+1);
                 }
                 if (map[y][x] == '-'){
                     Crafty.e('Pole').at(x+1, y+1);
-                }                 
+                }
                 if (map[y][x] == 'T'){
                     Crafty.e('Treasure').at(x+1, y+1);
 					container.add();					
                 }
                 if (map[y][x] == 'P'){
-<<<<<<< HEAD
-                    Crafty.e('PlayerCharacter').at(x+1, y+1);
-                }                                        
-        }
-    }
-=======
-                thePlayer  =  Crafty.e('PlayerCharacter').at(x+1, y+1);  
-                }				
+                thePlayer = Crafty.e('PlayerCharacter').at(x+1, y+1);
+                }	
                 if (map[y][x] == 'E'){
                     Crafty.e('Enemy').at(x+1, y+1);
                 }
-        } 
+        }
     }        
->>>>>>> 9b90a1b9e2df3467ff0913b62c10107e3d0a3548
    
     //creates an exit- still unfinished until ladders work correctly
     this.show_ladder = this.bind('TreasureCollected', function() {
@@ -180,7 +158,7 @@ Crafty.scene('Game', function() {
 Crafty.scene('NextLevel', function() {
     Crafty.e("2D, DOM, Text")
           .attr({ x: 0, y: Game.height()/2 - 24, w: Game.width() })
-          .text("You Won! Press any key for the next Level")
+          .text("You Won! Press Key for the next Level")
           .css({ "text-align": "center"})
           .textFont({ size: '15px', weight: 'bold' })
           .textColor("#FFFFFF");
@@ -196,21 +174,15 @@ Crafty.scene('Loading', function(){
 
   Crafty.load(['assets/Stein_oK_72ppi.png', 'assets/Ladder.png', 'assets/Schatz_24x19_72ppi.png', 'assets/Pole.png', 'assets/playersprite.png', 'assets/enemysprite.png' ], function(){
 
-	    Crafty.sprite(24, 'assets/playersprite.png', {
+Crafty.sprite(24, 'assets/playersprite.png', {
         spr_player: [0, 0],
         });
-		Crafty.sprite(24, 'assets/enemysprite.png', {
+Crafty.sprite(24, 'assets/enemysprite.png', {
         spr_enemy: [0, 0],
         });
 
-<<<<<<< HEAD
-    Crafty.sprite(16, 'assets/16x16_forest_1.gif', { // kommt noch nicht zum einsatz
-        spr_stone: [0, 0]
-    });
-=======
->>>>>>> 9b90a1b9e2df3467ff0913b62c10107e3d0a3548
       Crafty.e('2D, DOM, Text')
-    .text("Press any key to Start!")
+    .text("Press Key for Starting!")
     .attr({ x: 0, y: Game.height()/2 - 24, w: Game.width() })
     .css({ "text-align": "center"})
     .textFont({ size: '15px', weight: 'bold' })

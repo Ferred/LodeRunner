@@ -1,7 +1,7 @@
 Game = {
 // This defines our grid's size and the size of each of its tiles
     map_grid: {
-        width: 34,                        
+        width: 34,	
         height: 24,
         tile: {
             width: 24,
@@ -24,16 +24,11 @@ Game = {
         Crafty.init(Game.width(), Game.height());
        // document.getElementById("cr-stage").onmousemove = mouse;
         Crafty.background('rgb(0, 0, 0)');
-                Crafty.scene('Loading');
+Crafty.scene('Loading');
         //Crafty.scene('Game');
-<<<<<<< HEAD
         //Crafty.scene('NextLevel');
-    }
-=======
-        //Crafty.scene('NextLevel');  
         //start_loop();// starts game loop (for player)
-    } 
->>>>>>> 9b90a1b9e2df3467ff0913b62c10107e3d0a3548
+    }
 }
 //shows x and y coordinate where the mouse is
 function mouse(e)
@@ -51,9 +46,9 @@ function loop()
     //Crafty.c('Enemy').ai();
     //Game.player.caseTester();
     /*if (is_playing = true)
-    {
-        setTimeout(climbMaster, 10);
-    }*/
+{
+setTimeout(climbMaster, 10);
+}*/
     setTimeout(climbMaster, 1);
 }
 
